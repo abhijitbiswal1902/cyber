@@ -1,0 +1,18 @@
+1. Create Two Sample Files
+
+//t quit->:qa!
+nano file1.txt
+(Add some text → save with CTRL+O, exit with CTRL+X)
+nano file2.txt
+(Add slightly different text → save and exit)
+2. Compare Files Using diff
+diff file1.txt file2.txt
+3. cmp -l file1.txt file2.txt
+4. vimdiff file1.txt file2.txt
+5. sudo apt update
+sudo apt install meld -y
+Then run:
+meld file1.txt file2.txt
+6. Generate a Forensic Report
+You can export results to a file:
+diff -u file1.txt file2.txt > diff_report.txt
