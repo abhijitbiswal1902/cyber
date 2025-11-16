@@ -1,0 +1,22 @@
+
+1.open kali terminal
+2.sudo apt update
+3. sudo apt install -y docker.io
+4. sudo systemctl enable --now docker
+5.sudo docker run --rm -d --name dvwa -p 8080:80 vulnerables/web-dvwa
+6.sudo docker ps
+7.Open DVWA in the browser
+8.http://127.0.0.1:8080/
+Click on Create/Reset DB
+• Username: admin
+• Password: password
+9.DVWA Security → set to LOW
+10.command injection(left side)
+11.   127.0.0.1
+      127.0.0.1; echo INJECTION_SUCCESS
+      127.0.0.1 && uname –a
+      127.0.0.1; ping -c 2 127.0.0.1
+12. open cli dev tools--ctrl+shift+i ->dev tools->network->post->right click->copy value->copy as url
+13. paste on terminal
+14. change --data-raw 'ip=127.0.0.1&Submit=Submit' -> --data-raw 'ip=127.0.0.1; echo INJECTION_SUCCESS&Submit=Submit'
+15.sudo docker exec -it dvwa bash -lc 'tail -n 120 /var/log/apache2/access.log'
