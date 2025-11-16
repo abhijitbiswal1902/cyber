@@ -1,0 +1,81 @@
+Packet Filtering and Analysis using Wireshark/Burp Suite
+1.Open VirtualBox → Kali VM → Settings → Network.
+2.Set Adapter 1:
+▪ Attached to: Bridged Adapter
+▪ Promiscuous Mode: Allow All
+▪ Cable Connected: ✔️
+3.Start Kali Linux VM
+4.open terminal
+5.sudo wireshark
+6.Select network interface eth0
+7. Apply Display Filters for Analysis (opntional->dns,tls,i.addr==18.161.216.37)
+
+
+///////////////////////////////////////////
+Part B: Capturing Login Credentials over HTTP
+1.open terminal
+2.sudo service apache2 start
+sudo mkdir -p /var/www/html/testlogin
+cd /var/www/html/testlogin
+3.create login html page
+4.sudo nano login.html
+
+html
+CopyEdit
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Login Page</title>
+</head>
+<body>
+<h2>Login Form</h2>
+<form action="login.php" method="post">
+Username: <input type="text" name="username"><br><br>
+Password: <input type="password" name="password"><br><br>
+<input type="submit" value="Login">
+</form>
+</body>
+</html>
+Save (Ctrl + O → Enter → Ctrl + X).
+
+5.create pho file
+sudo nano login.php
+php
+CopyEdit
+<?php
+$username = $_POST['username'];
+$password = $_POST['password'];
+echo "<h2>Login Attempt</h2>";
+echo "Username: " . $username . "<br>";
+echo "Password: " . $password . "<br>";
+?>
+
+6.sudo service apache2 status
+sudo service apache2 start
+
+7.Browser:
+http://127.0.0.1/testlogin/login.html
+
+8.Open Wireshark → select lo (loopback) interface.
+9.Start capture.
+10.• Apply filter:
+http.request.method == "POST"
+ or right click on post
+11.Step 7 – Perform Login Attempt
+• Username: admin
+• Password: test123
+• Submit form.
+12.Step 8 – Analyze Packets
+• Locate POST packet.
+• Right-click → Follow → TCP Stream.
+• Credentials will be visible in plain text.
+
+
+
+
+
+
+
+
+
+
