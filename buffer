@@ -29,3 +29,4 @@ int main(void)
 }
 
 5../overflow
+6. gcc -g -O0 -fno-stack-protector –no-pie overflow.c –o overflow
